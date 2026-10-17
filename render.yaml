@@ -1,0 +1,23 @@
+services:
+  - type: web
+    name: jackdash-api
+    runtime: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /api/v1/health
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.12.7
+      - key: JACKDASH_BASE_URL
+        value: https://jackdash.ps.fhgdps.com
+      - key: CACHE_TTL_SECONDS
+        value: "180"
+      - key: RECENT_CACHE_TTL_SECONDS
+        value: "120"
+      - key: SPECIAL_CACHE_TTL_SECONDS
+        value: "300"
+      - key: LISTS_CACHE_TTL_SECONDS
+        value: "600"
+      - key: MAX_PAGES_PER_REQUEST
+        value: "10"
